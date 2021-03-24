@@ -57,7 +57,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.MapWinGIS">
-      <HintPath>..\..\..\..\MapWinGIS\git\src\bin\Win32\15.0\AxInterop.MapWinGIS.dll</HintPath>
+      <HintPath>..\..\..\MapWinGIS\src\bin\Win32\AxInterop.MapWinGIS.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
