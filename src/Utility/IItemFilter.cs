@@ -5,16 +5,16 @@ using System.Text;
 namespace Equin.ApplicationFramework
 {
     /// <summary>
-    /// Defines a general method to test it an item should be included in a <see cref="BindingListView&lt;T&gt;"/>.
+    /// Bunu test etmek için genel bir yöntemi tanýmlar. Bir öðeye dahil edilmelidir. <see cref="BindingListView&lt;T&gt;"/>.
     /// </summary>
-    /// <typeparam name="T">The type of item to be filtered.</typeparam>
+    /// <typeparam name="T">Filtrelenecek öðenin türü.</typeparam>
     public interface IItemFilter<T>
     {
         /// <summary>
-        /// Tests if the item should be included.
+        /// Öðe dahil edilmesi gerektiðinde testler.
         /// </summary>
-        /// <param name="item">The item to test.</param>
-        /// <returns>True if the item should be included, otherwise false.</returns>
+        /// <param name="item">Test edilecek öðe.</param>
+        /// <returns>Öðe dahil edilmesi gerekiyorsa, aksi halde yanlýþ.</returns>
         bool Include(T item);
     }
 

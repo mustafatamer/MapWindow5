@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Equin.ApplicationFramework
 {
     /// <summary>
-    /// Serves a wrapper for items being viewed in a <see cref="BindingListView&lt;T&gt;"/>.
+    /// Görüntülenen maddeler için bir sarmalayýcý servis eder. <see cref="BindingListView&lt;T&gt;"/>.
     /// This class implements <see cref="INotifyEditableObject"/> so will raise the necessary events during 
     /// the item edit life-cycle.
     /// </summary>
@@ -182,26 +182,17 @@ namespace Equin.ApplicationFramework
 
         protected virtual void OnEditBegun()
         {
-            if (EditBegun != null)
-            {
-                EditBegun(this, EventArgs.Empty);
-            }
+            EditBegun?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void OnEditCancelled()
         {
-            if (EditCancelled != null)
-            {
-                EditCancelled(this, EventArgs.Empty);
-            }
+            EditCancelled?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void OnEditEnded()
         {
-            if (EditEnded != null)
-            {
-                EditEnded(this, EventArgs.Empty);
-            }
+            EditEnded?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -210,35 +201,35 @@ namespace Equin.ApplicationFramework
 
         public void BeginEdit()
         {
-            // As per documentation, this method may get called multiple times for a single edit.
-            // So we set a flag to only honor the first call.
+            // Belgelere göre, bu yöntem tek bir düzenleme için birden fazla kez arayabilir.
+            // Bu yüzden sadece ilk aramayý onurlandýrmak için bir bayrak belirledik.
             if (!_editing)
             {
                 _editing = true;
 
-                // If possible call the object's BeginEdit() method
-                // to let it do what ever it needs e.g. save state
+                // Mümkünse nesnenin baþlamasý düzenleme () yöntemini arayýn
+                // ihtiyacý olaný yapmasýna izin vermek için e.g. Kayýt Yeri
                 if (Object is IEditableObject)
                 {
                     ((IEditableObject)Object).BeginEdit();
                 }
-                // Raise the EditBegun event.                
+                // Düzenleme baþlamasý olayý kaldýrýn.       
                 OnEditBegun();
             }
         }
 
         public void CancelEdit()
         {
-            // We can only cancel if currently editing
+            // Yalnýzca düzenleniyorsa iptal edebiliriz
             if (_editing)
             {
-                // If possible call the object's CancelEdit() method
-                // to let it do what ever it needs e.g. rollback state
+                // Mümkünse nesnenin  CancelEdit() yöntemini arayýn
+                // Ýhtiyacý olaný yapmasýna izin vermek e.g. rollback state
                 if (Object is IEditableObject)
                 {
                     ((IEditableObject)Object).CancelEdit();
                 }
-                // Raise the EditCancelled event.
+                // Ýptal edilen etkinliði düzenle.
                 OnEditCancelled();
                 // No longer editing now.
                 _editing = false;
@@ -247,18 +238,18 @@ namespace Equin.ApplicationFramework
 
         public void EndEdit()
         {
-            // We can only end if currently editing
+            // Sadece þu anda düzenleniyorsa sona erebiliriz
             if (_editing)
             {
-                // If possible call the object's EndEdit() method
-                // to let it do what ever it needs e.g. commit state
+                // Mümkünse nesnenin son EndEdit() yöntemini arayýn
+                // ihtiyacý olaný yapmasýna izin vermek e.g. commit state
                 if (Object is IEditableObject)
                 {
                     ((IEditableObject)Object).EndEdit();
                 }
-                // Raise the EditEnded event.
+                // Sonlandýrýlmýþ etkinliði düzenle.
                 OnEditEnded();
-                // No longer editing now.
+                // Artýk þimdi düzenlemeyin.
                 _editing = false;
             }
         }
@@ -267,8 +258,8 @@ namespace Equin.ApplicationFramework
 
         #region IDataErrorInfo Members
 
-        // If the wrapped Object support IDataErrorInfo we forward calls to it.
-        // Otherwise, we just return empty strings that signal "no error".
+        // Sarýlmýþ nesne, IDataErrorInfo destekliyorsa, aramalarý iletiriz.
+        // Aksi takdirde, "no error" sinyalini yalnýzca boþ dizileri döndürüyoruz.
 
         string IDataErrorInfo.Error
         {

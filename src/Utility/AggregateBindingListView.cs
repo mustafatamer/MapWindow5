@@ -42,19 +42,19 @@ namespace Equin.ApplicationFramework
         #region Private Member Fields
 
         /// <summary>
-        /// The list of underlying list of items on which this view is based.
+        /// Bu görüþün dayandýðý ürünlerin temel listesinin listesi.
         /// </summary>
         private IList _sourceLists;
         /// <summary>
-        /// The sorted, filtered list of item indices in _sourceList.
+        /// Kaynak listesindeki öðe endekslerinin sýralanmýþ, filtrelenmiþ listesi.
         /// </summary>
         private MultiSourceIndexList<T> _sourceIndices;
         /// <summary>
-        /// The current filter applied to the view.
+        /// Geçerli filtre görünüme uygulanýr.
         /// </summary>
         private IItemFilter<T> _filter;
         /// <summary>
-        /// The current sorts applied to the view.
+        /// Geçerli türler görünüme uygulanýr.
         /// </summary>
         private ListSortDescriptionCollection _sorts;
         /// <summary>
